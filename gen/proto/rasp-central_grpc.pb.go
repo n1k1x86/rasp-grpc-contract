@@ -24,7 +24,6 @@ const _ = grpc.SupportPackageIsVersion7
 type RASPCentralClient interface {
 	RegAgent(ctx context.Context, in *RegAgentRequest, opts ...grpc.CallOption) (*RegAgentResponse, error)
 	DeactivateAgent(ctx context.Context, in *DeactivateAgentRequest, opts ...grpc.CallOption) (*DeactivateAgentResponse, error)
-	GetUpdatesSSRF(ctx context.Context, in *GetUpdatesSSRFRequest, opts ...grpc.CallOption) (RASPCentral_GetUpdatesSSRFClient, error)
 }
 
 type rASPCentralClient struct {
@@ -53,45 +52,12 @@ func (c *rASPCentralClient) DeactivateAgent(ctx context.Context, in *DeactivateA
 	return out, nil
 }
 
-func (c *rASPCentralClient) GetUpdatesSSRF(ctx context.Context, in *GetUpdatesSSRFRequest, opts ...grpc.CallOption) (RASPCentral_GetUpdatesSSRFClient, error) {
-	stream, err := c.cc.NewStream(ctx, &RASPCentral_ServiceDesc.Streams[0], "/RASPCentral/GetUpdatesSSRF", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &rASPCentralGetUpdatesSSRFClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type RASPCentral_GetUpdatesSSRFClient interface {
-	Recv() (*GetUpdatesSSRFResponse, error)
-	grpc.ClientStream
-}
-
-type rASPCentralGetUpdatesSSRFClient struct {
-	grpc.ClientStream
-}
-
-func (x *rASPCentralGetUpdatesSSRFClient) Recv() (*GetUpdatesSSRFResponse, error) {
-	m := new(GetUpdatesSSRFResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 // RASPCentralServer is the server API for RASPCentral service.
 // All implementations must embed UnimplementedRASPCentralServer
 // for forward compatibility
 type RASPCentralServer interface {
 	RegAgent(context.Context, *RegAgentRequest) (*RegAgentResponse, error)
 	DeactivateAgent(context.Context, *DeactivateAgentRequest) (*DeactivateAgentResponse, error)
-	GetUpdatesSSRF(*GetUpdatesSSRFRequest, RASPCentral_GetUpdatesSSRFServer) error
 	mustEmbedUnimplementedRASPCentralServer()
 }
 
@@ -104,9 +70,6 @@ func (UnimplementedRASPCentralServer) RegAgent(context.Context, *RegAgentRequest
 }
 func (UnimplementedRASPCentralServer) DeactivateAgent(context.Context, *DeactivateAgentRequest) (*DeactivateAgentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeactivateAgent not implemented")
-}
-func (UnimplementedRASPCentralServer) GetUpdatesSSRF(*GetUpdatesSSRFRequest, RASPCentral_GetUpdatesSSRFServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetUpdatesSSRF not implemented")
 }
 func (UnimplementedRASPCentralServer) mustEmbedUnimplementedRASPCentralServer() {}
 
@@ -157,27 +120,6 @@ func _RASPCentral_DeactivateAgent_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RASPCentral_GetUpdatesSSRF_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetUpdatesSSRFRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(RASPCentralServer).GetUpdatesSSRF(m, &rASPCentralGetUpdatesSSRFServer{stream})
-}
-
-type RASPCentral_GetUpdatesSSRFServer interface {
-	Send(*GetUpdatesSSRFResponse) error
-	grpc.ServerStream
-}
-
-type rASPCentralGetUpdatesSSRFServer struct {
-	grpc.ServerStream
-}
-
-func (x *rASPCentralGetUpdatesSSRFServer) Send(m *GetUpdatesSSRFResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
 // RASPCentral_ServiceDesc is the grpc.ServiceDesc for RASPCentral service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -194,12 +136,6 @@ var RASPCentral_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RASPCentral_DeactivateAgent_Handler,
 		},
 	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "GetUpdatesSSRF",
-			Handler:       _RASPCentral_GetUpdatesSSRF_Handler,
-			ServerStreams: true,
-		},
-	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto/rasp-central.proto",
 }
