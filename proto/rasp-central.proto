@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "github.com/n1k1x86/rasp-central/gen";
+
+enum AgentNames {
+    AGENT_NAME_UNSPECIFIED = 0;
+    AGENT_NAME_SSRF = 1;
+}
+
+message RegAgentRequest {
+    string ServiceName = 1;
+    string ServiceDescription = 2;
+    AgentNames AgentName = 3; 
+}
+
+message RegAgentResponse {
+    bool Success = 1;
+    string Detail = 2;
+}
+
+message DeactivateAgentRequest {
+    string ServiceName = 1;
+    AgentNames AgentName = 2;
+}
+
+message DeactivateAgentResponse {
+    bool Success = 1;
+    string Detail = 2;
+}
+
+message GetUpdatesSSRFRequest {
+    string ServiceName = 1;
+    AgentNames AgentNames = 2;
+}
+
+message HostsUpdates {
+    repeated string Hosts = 1; 
+} 
+
+message IPUpdates {
+    repeated string IPs = 1;
+}
+
+message RegexpUpdates {
+    repeated string RegexpRules = 1;
+}
+
+message GetUpdatesSSRFResponse {
+    HostsUpdates HostsUpdates = 1;
+    IPUpdates IPUpdates = 2;
+    RegexpUpdates RegexpUpdates = 3;
+
+    string Detail = 4;
+}
+
+service RASPCentral {
+    rpc RegAgent(RegAgentRequest) returns (RegAgentResponse);
+    rpc DeactivateAgent(DeactivateAgentRequest) returns (DeactivateAgentResponse);
+    rpc GetUpdatesSSRF(GetUpdatesSSRFRequest) returns (stream GetUpdatesSSRFResponse);
+}

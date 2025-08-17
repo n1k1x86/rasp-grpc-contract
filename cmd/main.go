@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Init pkg")
+	fmt.Println("Init gRPC contracts")
 }
