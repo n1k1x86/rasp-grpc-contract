@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "github.com/n1k1x86/rasp-grpc-contract/gen";
 
-message RegAgentRequest {
+message RegSSRFAgentRequest {
     string ServiceName = 1;
     string ServiceDescription = 2;
     repeated string HostRules = 3;
@@ -11,24 +11,24 @@ message RegAgentRequest {
     string AgentName = 6; 
 }
 
-message RegAgentResponse {
+message RegSSRFAgentResponse {
     int64 Status = 1;
     string Detail = 2;
     string AgentID = 3;
 }
 
-message DeactivateAgentRequest {
+message DeactivateSSRFAgentRequest {
     string ServiceName = 1;
     string AgentName = 2;
     string AgentID = 3;
 }
 
-message DeactivateAgentResponse {
+message DeactivateSSRFAgentResponse {
     int64 Status = 1;
     string Detail = 2;
 }
 
 service RASPCentral {
-    rpc RegAgent(RegAgentRequest) returns (RegAgentResponse);
-    rpc DeactivateAgent(DeactivateAgentRequest) returns (DeactivateAgentResponse);
+    rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
+    rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
 }

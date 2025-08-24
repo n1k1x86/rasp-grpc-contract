@@ -22,8 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RASPCentralClient interface {
-	RegAgent(ctx context.Context, in *RegAgentRequest, opts ...grpc.CallOption) (*RegAgentResponse, error)
-	DeactivateAgent(ctx context.Context, in *DeactivateAgentRequest, opts ...grpc.CallOption) (*DeactivateAgentResponse, error)
+	RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error)
+	DeactivateSSRFAgent(ctx context.Context, in *DeactivateSSRFAgentRequest, opts ...grpc.CallOption) (*DeactivateSSRFAgentResponse, error)
 }
 
 type rASPCentralClient struct {
@@ -34,18 +34,18 @@ func NewRASPCentralClient(cc grpc.ClientConnInterface) RASPCentralClient {
 	return &rASPCentralClient{cc}
 }
 
-func (c *rASPCentralClient) RegAgent(ctx context.Context, in *RegAgentRequest, opts ...grpc.CallOption) (*RegAgentResponse, error) {
-	out := new(RegAgentResponse)
-	err := c.cc.Invoke(ctx, "/RASPCentral/RegAgent", in, out, opts...)
+func (c *rASPCentralClient) RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error) {
+	out := new(RegSSRFAgentResponse)
+	err := c.cc.Invoke(ctx, "/RASPCentral/RegSSRFAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rASPCentralClient) DeactivateAgent(ctx context.Context, in *DeactivateAgentRequest, opts ...grpc.CallOption) (*DeactivateAgentResponse, error) {
-	out := new(DeactivateAgentResponse)
-	err := c.cc.Invoke(ctx, "/RASPCentral/DeactivateAgent", in, out, opts...)
+func (c *rASPCentralClient) DeactivateSSRFAgent(ctx context.Context, in *DeactivateSSRFAgentRequest, opts ...grpc.CallOption) (*DeactivateSSRFAgentResponse, error) {
+	out := new(DeactivateSSRFAgentResponse)
+	err := c.cc.Invoke(ctx, "/RASPCentral/DeactivateSSRFAgent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,8 +56,8 @@ func (c *rASPCentralClient) DeactivateAgent(ctx context.Context, in *DeactivateA
 // All implementations must embed UnimplementedRASPCentralServer
 // for forward compatibility
 type RASPCentralServer interface {
-	RegAgent(context.Context, *RegAgentRequest) (*RegAgentResponse, error)
-	DeactivateAgent(context.Context, *DeactivateAgentRequest) (*DeactivateAgentResponse, error)
+	RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error)
+	DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error)
 	mustEmbedUnimplementedRASPCentralServer()
 }
 
@@ -65,11 +65,11 @@ type RASPCentralServer interface {
 type UnimplementedRASPCentralServer struct {
 }
 
-func (UnimplementedRASPCentralServer) RegAgent(context.Context, *RegAgentRequest) (*RegAgentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegAgent not implemented")
+func (UnimplementedRASPCentralServer) RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegSSRFAgent not implemented")
 }
-func (UnimplementedRASPCentralServer) DeactivateAgent(context.Context, *DeactivateAgentRequest) (*DeactivateAgentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeactivateAgent not implemented")
+func (UnimplementedRASPCentralServer) DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeactivateSSRFAgent not implemented")
 }
 func (UnimplementedRASPCentralServer) mustEmbedUnimplementedRASPCentralServer() {}
 
@@ -84,38 +84,38 @@ func RegisterRASPCentralServer(s grpc.ServiceRegistrar, srv RASPCentralServer) {
 	s.RegisterService(&RASPCentral_ServiceDesc, srv)
 }
 
-func _RASPCentral_RegAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegAgentRequest)
+func _RASPCentral_RegSSRFAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegSSRFAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RASPCentralServer).RegAgent(ctx, in)
+		return srv.(RASPCentralServer).RegSSRFAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/RASPCentral/RegAgent",
+		FullMethod: "/RASPCentral/RegSSRFAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RASPCentralServer).RegAgent(ctx, req.(*RegAgentRequest))
+		return srv.(RASPCentralServer).RegSSRFAgent(ctx, req.(*RegSSRFAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RASPCentral_DeactivateAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeactivateAgentRequest)
+func _RASPCentral_DeactivateSSRFAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeactivateSSRFAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RASPCentralServer).DeactivateAgent(ctx, in)
+		return srv.(RASPCentralServer).DeactivateSSRFAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/RASPCentral/DeactivateAgent",
+		FullMethod: "/RASPCentral/DeactivateSSRFAgent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RASPCentralServer).DeactivateAgent(ctx, req.(*DeactivateAgentRequest))
+		return srv.(RASPCentralServer).DeactivateSSRFAgent(ctx, req.(*DeactivateSSRFAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -128,12 +128,12 @@ var RASPCentral_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RASPCentralServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RegAgent",
-			Handler:    _RASPCentral_RegAgent_Handler,
+			MethodName: "RegSSRFAgent",
+			Handler:    _RASPCentral_RegSSRFAgent_Handler,
 		},
 		{
-			MethodName: "DeactivateAgent",
-			Handler:    _RASPCentral_DeactivateAgent_Handler,
+			MethodName: "DeactivateSSRFAgent",
+			Handler:    _RASPCentral_DeactivateSSRFAgent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
