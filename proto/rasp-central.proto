@@ -29,7 +29,25 @@ message DeactivateSSRFAgentResponse {
     string Detail = 2;
 }
 
+message AgentRequest {
+    string AgentID = 1;
+    string ServiceName = 2;
+}
+
+message UpdatedSSRFRules {
+    repeated string HostRules = 1;
+    repeated string IPRules = 2;
+    repeated string RegexpRules = 3;
+}
+
+message NewRules {
+    oneof payload {
+        UpdatedSSRFRules Rules = 1;
+    }
+}
+
 service RASPCentral {
     rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
     rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
+    rpc SyncRules(stream AgentRequest) returns (stream NewRules);
 }
