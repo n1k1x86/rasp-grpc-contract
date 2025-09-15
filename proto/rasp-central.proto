@@ -34,6 +34,10 @@ message AgentRequest {
     string ServiceName = 2;
 }
 
+message CloseSSRFAgentResponse {
+    string Detail = 1;
+}
+
 message UpdatedSSRFRules {
     repeated string HostRules = 1;
     repeated string IPRules = 2;
@@ -49,5 +53,6 @@ message NewRules {
 service RASPCentral {
     rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
     rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
+    rpc CloseSSRFAgent(AgentRequest) returns (CloseSSRFAgentResponse);
     rpc SyncRules(AgentRequest) returns (stream NewRules);
 }

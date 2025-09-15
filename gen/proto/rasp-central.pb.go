@@ -337,6 +337,50 @@ func (x *AgentRequest) GetServiceName() string {
 	return ""
 }
 
+type CloseSSRFAgentResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Detail        string                 `protobuf:"bytes,1,opt,name=Detail,proto3" json:"Detail,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CloseSSRFAgentResponse) Reset() {
+	*x = CloseSSRFAgentResponse{}
+	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CloseSSRFAgentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CloseSSRFAgentResponse) ProtoMessage() {}
+
+func (x *CloseSSRFAgentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CloseSSRFAgentResponse.ProtoReflect.Descriptor instead.
+func (*CloseSSRFAgentResponse) Descriptor() ([]byte, []int) {
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *CloseSSRFAgentResponse) GetDetail() string {
+	if x != nil {
+		return x.Detail
+	}
+	return ""
+}
+
 type UpdatedSSRFRules struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	HostRules     []string               `protobuf:"bytes,1,rep,name=HostRules,proto3" json:"HostRules,omitempty"`
@@ -348,7 +392,7 @@ type UpdatedSSRFRules struct {
 
 func (x *UpdatedSSRFRules) Reset() {
 	*x = UpdatedSSRFRules{}
-	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	mi := &file_proto_rasp_central_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -360,7 +404,7 @@ func (x *UpdatedSSRFRules) String() string {
 func (*UpdatedSSRFRules) ProtoMessage() {}
 
 func (x *UpdatedSSRFRules) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	mi := &file_proto_rasp_central_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -373,7 +417,7 @@ func (x *UpdatedSSRFRules) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatedSSRFRules.ProtoReflect.Descriptor instead.
 func (*UpdatedSSRFRules) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{5}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UpdatedSSRFRules) GetHostRules() []string {
@@ -409,7 +453,7 @@ type NewRules struct {
 
 func (x *NewRules) Reset() {
 	*x = NewRules{}
-	mi := &file_proto_rasp_central_proto_msgTypes[6]
+	mi := &file_proto_rasp_central_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -421,7 +465,7 @@ func (x *NewRules) String() string {
 func (*NewRules) ProtoMessage() {}
 
 func (x *NewRules) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[6]
+	mi := &file_proto_rasp_central_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -434,7 +478,7 @@ func (x *NewRules) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewRules.ProtoReflect.Descriptor instead.
 func (*NewRules) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{6}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *NewRules) GetPayload() isNewRules_Payload {
@@ -489,17 +533,20 @@ const file_proto_rasp_central_proto_rawDesc = "" +
 	"\x06Detail\x18\x02 \x01(\tR\x06Detail\"J\n" +
 	"\fAgentRequest\x12\x18\n" +
 	"\aAgentID\x18\x01 \x01(\tR\aAgentID\x12 \n" +
-	"\vServiceName\x18\x02 \x01(\tR\vServiceName\"l\n" +
+	"\vServiceName\x18\x02 \x01(\tR\vServiceName\"0\n" +
+	"\x16CloseSSRFAgentResponse\x12\x16\n" +
+	"\x06Detail\x18\x01 \x01(\tR\x06Detail\"l\n" +
 	"\x10UpdatedSSRFRules\x12\x1c\n" +
 	"\tHostRules\x18\x01 \x03(\tR\tHostRules\x12\x18\n" +
 	"\aIPRules\x18\x02 \x03(\tR\aIPRules\x12 \n" +
 	"\vRegexpRules\x18\x03 \x03(\tR\vRegexpRules\"@\n" +
 	"\bNewRules\x12)\n" +
 	"\x05Rules\x18\x01 \x01(\v2\x11.UpdatedSSRFRulesH\x00R\x05RulesB\t\n" +
-	"\apayload2\xc5\x01\n" +
+	"\apayload2\xff\x01\n" +
 	"\vRASPCentral\x12;\n" +
 	"\fRegSSRFAgent\x12\x14.RegSSRFAgentRequest\x1a\x15.RegSSRFAgentResponse\x12P\n" +
-	"\x13DeactivateSSRFAgent\x12\x1b.DeactivateSSRFAgentRequest\x1a\x1c.DeactivateSSRFAgentResponse\x12'\n" +
+	"\x13DeactivateSSRFAgent\x12\x1b.DeactivateSSRFAgentRequest\x1a\x1c.DeactivateSSRFAgentResponse\x128\n" +
+	"\x0eCloseSSRFAgent\x12\r.AgentRequest\x1a\x17.CloseSSRFAgentResponse\x12'\n" +
 	"\tSyncRules\x12\r.AgentRequest\x1a\t.NewRules0\x01B+Z)github.com/n1k1x86/rasp-grpc-contract/genb\x06proto3"
 
 var (
@@ -514,26 +561,29 @@ func file_proto_rasp_central_proto_rawDescGZIP() []byte {
 	return file_proto_rasp_central_proto_rawDescData
 }
 
-var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_rasp_central_proto_goTypes = []any{
 	(*RegSSRFAgentRequest)(nil),         // 0: RegSSRFAgentRequest
 	(*RegSSRFAgentResponse)(nil),        // 1: RegSSRFAgentResponse
 	(*DeactivateSSRFAgentRequest)(nil),  // 2: DeactivateSSRFAgentRequest
 	(*DeactivateSSRFAgentResponse)(nil), // 3: DeactivateSSRFAgentResponse
 	(*AgentRequest)(nil),                // 4: AgentRequest
-	(*UpdatedSSRFRules)(nil),            // 5: UpdatedSSRFRules
-	(*NewRules)(nil),                    // 6: NewRules
+	(*CloseSSRFAgentResponse)(nil),      // 5: CloseSSRFAgentResponse
+	(*UpdatedSSRFRules)(nil),            // 6: UpdatedSSRFRules
+	(*NewRules)(nil),                    // 7: NewRules
 }
 var file_proto_rasp_central_proto_depIdxs = []int32{
-	5, // 0: NewRules.Rules:type_name -> UpdatedSSRFRules
+	6, // 0: NewRules.Rules:type_name -> UpdatedSSRFRules
 	0, // 1: RASPCentral.RegSSRFAgent:input_type -> RegSSRFAgentRequest
 	2, // 2: RASPCentral.DeactivateSSRFAgent:input_type -> DeactivateSSRFAgentRequest
-	4, // 3: RASPCentral.SyncRules:input_type -> AgentRequest
-	1, // 4: RASPCentral.RegSSRFAgent:output_type -> RegSSRFAgentResponse
-	3, // 5: RASPCentral.DeactivateSSRFAgent:output_type -> DeactivateSSRFAgentResponse
-	6, // 6: RASPCentral.SyncRules:output_type -> NewRules
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
+	4, // 3: RASPCentral.CloseSSRFAgent:input_type -> AgentRequest
+	4, // 4: RASPCentral.SyncRules:input_type -> AgentRequest
+	1, // 5: RASPCentral.RegSSRFAgent:output_type -> RegSSRFAgentResponse
+	3, // 6: RASPCentral.DeactivateSSRFAgent:output_type -> DeactivateSSRFAgentResponse
+	5, // 7: RASPCentral.CloseSSRFAgent:output_type -> CloseSSRFAgentResponse
+	7, // 8: RASPCentral.SyncRules:output_type -> NewRules
+	5, // [5:9] is the sub-list for method output_type
+	1, // [1:5] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -544,7 +594,7 @@ func file_proto_rasp_central_proto_init() {
 	if File_proto_rasp_central_proto != nil {
 		return
 	}
-	file_proto_rasp_central_proto_msgTypes[6].OneofWrappers = []any{
+	file_proto_rasp_central_proto_msgTypes[7].OneofWrappers = []any{
 		(*NewRules_Rules)(nil),
 	}
 	type x struct{}
@@ -553,7 +603,7 @@ func file_proto_rasp_central_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_rasp_central_proto_rawDesc), len(file_proto_rasp_central_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
