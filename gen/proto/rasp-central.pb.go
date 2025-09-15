@@ -496,11 +496,11 @@ const file_proto_rasp_central_proto_rawDesc = "" +
 	"\vRegexpRules\x18\x03 \x03(\tR\vRegexpRules\"@\n" +
 	"\bNewRules\x12)\n" +
 	"\x05Rules\x18\x01 \x01(\v2\x11.UpdatedSSRFRulesH\x00R\x05RulesB\t\n" +
-	"\apayload2\xc7\x01\n" +
+	"\apayload2\xc5\x01\n" +
 	"\vRASPCentral\x12;\n" +
 	"\fRegSSRFAgent\x12\x14.RegSSRFAgentRequest\x1a\x15.RegSSRFAgentResponse\x12P\n" +
-	"\x13DeactivateSSRFAgent\x12\x1b.DeactivateSSRFAgentRequest\x1a\x1c.DeactivateSSRFAgentResponse\x12)\n" +
-	"\tSyncRules\x12\r.AgentRequest\x1a\t.NewRules(\x010\x01B+Z)github.com/n1k1x86/rasp-grpc-contract/genb\x06proto3"
+	"\x13DeactivateSSRFAgent\x12\x1b.DeactivateSSRFAgentRequest\x1a\x1c.DeactivateSSRFAgentResponse\x12'\n" +
+	"\tSyncRules\x12\r.AgentRequest\x1a\t.NewRules0\x01B+Z)github.com/n1k1x86/rasp-grpc-contract/genb\x06proto3"
 
 var (
 	file_proto_rasp_central_proto_rawDescOnce sync.Once

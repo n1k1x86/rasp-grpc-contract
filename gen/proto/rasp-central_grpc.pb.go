@@ -30,7 +30,7 @@ const (
 type RASPCentralClient interface {
 	RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error)
 	DeactivateSSRFAgent(ctx context.Context, in *DeactivateSSRFAgentRequest, opts ...grpc.CallOption) (*DeactivateSSRFAgentResponse, error)
-	SyncRules(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[AgentRequest, NewRules], error)
+	SyncRules(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NewRules], error)
 }
 
 type rASPCentralClient struct {
@@ -61,18 +61,24 @@ func (c *rASPCentralClient) DeactivateSSRFAgent(ctx context.Context, in *Deactiv
 	return out, nil
 }
 
-func (c *rASPCentralClient) SyncRules(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[AgentRequest, NewRules], error) {
+func (c *rASPCentralClient) SyncRules(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NewRules], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &RASPCentral_ServiceDesc.Streams[0], RASPCentral_SyncRules_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	x := &grpc.GenericClientStream[AgentRequest, NewRules]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
 	return x, nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type RASPCentral_SyncRulesClient = grpc.BidiStreamingClient[AgentRequest, NewRules]
+type RASPCentral_SyncRulesClient = grpc.ServerStreamingClient[NewRules]
 
 // RASPCentralServer is the server API for RASPCentral service.
 // All implementations must embed UnimplementedRASPCentralServer
@@ -80,7 +86,7 @@ type RASPCentral_SyncRulesClient = grpc.BidiStreamingClient[AgentRequest, NewRul
 type RASPCentralServer interface {
 	RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error)
 	DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error)
-	SyncRules(grpc.BidiStreamingServer[AgentRequest, NewRules]) error
+	SyncRules(*AgentRequest, grpc.ServerStreamingServer[NewRules]) error
 	mustEmbedUnimplementedRASPCentralServer()
 }
 
@@ -97,7 +103,7 @@ func (UnimplementedRASPCentralServer) RegSSRFAgent(context.Context, *RegSSRFAgen
 func (UnimplementedRASPCentralServer) DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeactivateSSRFAgent not implemented")
 }
-func (UnimplementedRASPCentralServer) SyncRules(grpc.BidiStreamingServer[AgentRequest, NewRules]) error {
+func (UnimplementedRASPCentralServer) SyncRules(*AgentRequest, grpc.ServerStreamingServer[NewRules]) error {
 	return status.Errorf(codes.Unimplemented, "method SyncRules not implemented")
 }
 func (UnimplementedRASPCentralServer) mustEmbedUnimplementedRASPCentralServer() {}
@@ -158,11 +164,15 @@ func _RASPCentral_DeactivateSSRFAgent_Handler(srv interface{}, ctx context.Conte
 }
 
 func _RASPCentral_SyncRules_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(RASPCentralServer).SyncRules(&grpc.GenericServerStream[AgentRequest, NewRules]{ServerStream: stream})
+	m := new(AgentRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(RASPCentralServer).SyncRules(m, &grpc.GenericServerStream[AgentRequest, NewRules]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type RASPCentral_SyncRulesServer = grpc.BidiStreamingServer[AgentRequest, NewRules]
+type RASPCentral_SyncRulesServer = grpc.ServerStreamingServer[NewRules]
 
 // RASPCentral_ServiceDesc is the grpc.ServiceDesc for RASPCentral service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -185,7 +195,6 @@ var RASPCentral_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "SyncRules",
 			Handler:       _RASPCentral_SyncRules_Handler,
 			ServerStreams: true,
-			ClientStreams: true,
 		},
 	},
 	Metadata: "proto/rasp-central.proto",

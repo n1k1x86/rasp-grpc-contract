@@ -49,5 +49,5 @@ message NewRules {
 service RASPCentral {
     rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
     rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
-    rpc SyncRules(stream AgentRequest) returns (stream NewRules);
+    rpc SyncRules(AgentRequest) returns (stream NewRules);
 }
