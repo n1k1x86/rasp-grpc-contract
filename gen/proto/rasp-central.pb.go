@@ -78,6 +78,7 @@ type RegSSRFAgentResponse struct {
 	Status        int64                  `protobuf:"varint,1,opt,name=Status,proto3" json:"Status,omitempty"`
 	Detail        string                 `protobuf:"bytes,2,opt,name=Detail,proto3" json:"Detail,omitempty"`
 	AgentID       string                 `protobuf:"bytes,3,opt,name=AgentID,proto3" json:"AgentID,omitempty"`
+	ServiceID     string                 `protobuf:"bytes,4,opt,name=ServiceID,proto3" json:"ServiceID,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -129,6 +130,13 @@ func (x *RegSSRFAgentResponse) GetDetail() string {
 func (x *RegSSRFAgentResponse) GetAgentID() string {
 	if x != nil {
 		return x.AgentID
+	}
+	return ""
+}
+
+func (x *RegSSRFAgentResponse) GetServiceID() string {
+	if x != nil {
+		return x.ServiceID
 	}
 	return ""
 }
@@ -442,11 +450,12 @@ const file_proto_rasp_central_proto_rawDesc = "" +
 	"\x18proto/rasp-central.proto\"Q\n" +
 	"\x13RegSSRFAgentRequest\x12\x1c\n" +
 	"\tServiceID\x18\x01 \x01(\tR\tServiceID\x12\x1c\n" +
-	"\tAgentName\x18\x02 \x01(\tR\tAgentName\"`\n" +
+	"\tAgentName\x18\x02 \x01(\tR\tAgentName\"~\n" +
 	"\x14RegSSRFAgentResponse\x12\x16\n" +
 	"\x06Status\x18\x01 \x01(\x03R\x06Status\x12\x16\n" +
 	"\x06Detail\x18\x02 \x01(\tR\x06Detail\x12\x18\n" +
-	"\aAgentID\x18\x03 \x01(\tR\aAgentID\"(\n" +
+	"\aAgentID\x18\x03 \x01(\tR\aAgentID\x12\x1c\n" +
+	"\tServiceID\x18\x04 \x01(\tR\tServiceID\"(\n" +
 	"\fAgentRequest\x12\x18\n" +
 	"\aAgentID\x18\x01 \x01(\tR\aAgentID\"0\n" +
 	"\x16CloseSSRFAgentResponse\x12\x16\n" +
