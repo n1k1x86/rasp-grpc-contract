@@ -50,9 +50,18 @@ message NewRules {
     }
 }
 
+message IsServiceRegisteredReq {
+    string ServiceID = 1;
+}
+
+message IsServiceRegisteredResp {
+    bool IsRegistered = 1;
+}
+
 service RASPCentral {
     rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
     rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
     rpc CloseSSRFAgent(AgentRequest) returns (CloseSSRFAgentResponse);
+    rpc IsServiceRegistered(IsServiceRegisteredReq) returns (IsServiceRegisteredResp);
     rpc SyncRules(AgentRequest) returns (stream NewRules);
 }
