@@ -3,13 +3,8 @@ syntax = "proto3";
 option go_package = "github.com/n1k1x86/rasp-grpc-contract/gen";
 
 message RegSSRFAgentRequest {
-    string ServiceName = 1;
-    string ServiceDescription = 2;
-    repeated string HostRules = 3;
-    repeated string IPRules = 4;
-    repeated string RegexpRules = 5;
-    string UpdateURL = 6;
-    string AgentName = 7; 
+    string ServiceID = 1;
+    string AgentName = 2; 
 }
 
 message RegSSRFAgentResponse {
@@ -18,20 +13,8 @@ message RegSSRFAgentResponse {
     string AgentID = 3;
 }
 
-message DeactivateSSRFAgentRequest {
-    string ServiceName = 1;
-    string AgentName = 2;
-    string AgentID = 3;
-}
-
-message DeactivateSSRFAgentResponse {
-    int64 Status = 1;
-    string Detail = 2;
-}
-
 message AgentRequest {
     string AgentID = 1;
-    string ServiceName = 2;
 }
 
 message CloseSSRFAgentResponse {
@@ -60,7 +43,6 @@ message IsServiceRegisteredResp {
 
 service RASPCentral {
     rpc RegSSRFAgent(RegSSRFAgentRequest) returns (RegSSRFAgentResponse);
-    rpc DeactivateSSRFAgent(DeactivateSSRFAgentRequest) returns (DeactivateSSRFAgentResponse);
     rpc CloseSSRFAgent(AgentRequest) returns (CloseSSRFAgentResponse);
     rpc IsServiceRegistered(IsServiceRegisteredReq) returns (IsServiceRegisteredResp);
     rpc SyncRules(AgentRequest) returns (stream NewRules);
