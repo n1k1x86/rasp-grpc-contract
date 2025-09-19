@@ -20,7 +20,6 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	RASPCentral_RegSSRFAgent_FullMethodName        = "/RASPCentral/RegSSRFAgent"
-	RASPCentral_DeactivateSSRFAgent_FullMethodName = "/RASPCentral/DeactivateSSRFAgent"
 	RASPCentral_CloseSSRFAgent_FullMethodName      = "/RASPCentral/CloseSSRFAgent"
 	RASPCentral_IsServiceRegistered_FullMethodName = "/RASPCentral/IsServiceRegistered"
 	RASPCentral_SyncRules_FullMethodName           = "/RASPCentral/SyncRules"
@@ -31,7 +30,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RASPCentralClient interface {
 	RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error)
-	DeactivateSSRFAgent(ctx context.Context, in *DeactivateSSRFAgentRequest, opts ...grpc.CallOption) (*DeactivateSSRFAgentResponse, error)
 	CloseSSRFAgent(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (*CloseSSRFAgentResponse, error)
 	IsServiceRegistered(ctx context.Context, in *IsServiceRegisteredReq, opts ...grpc.CallOption) (*IsServiceRegisteredResp, error)
 	SyncRules(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NewRules], error)
@@ -49,16 +47,6 @@ func (c *rASPCentralClient) RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRe
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RegSSRFAgentResponse)
 	err := c.cc.Invoke(ctx, RASPCentral_RegSSRFAgent_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rASPCentralClient) DeactivateSSRFAgent(ctx context.Context, in *DeactivateSSRFAgentRequest, opts ...grpc.CallOption) (*DeactivateSSRFAgentResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeactivateSSRFAgentResponse)
-	err := c.cc.Invoke(ctx, RASPCentral_DeactivateSSRFAgent_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +97,6 @@ type RASPCentral_SyncRulesClient = grpc.ServerStreamingClient[NewRules]
 // for forward compatibility.
 type RASPCentralServer interface {
 	RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error)
-	DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error)
 	CloseSSRFAgent(context.Context, *AgentRequest) (*CloseSSRFAgentResponse, error)
 	IsServiceRegistered(context.Context, *IsServiceRegisteredReq) (*IsServiceRegisteredResp, error)
 	SyncRules(*AgentRequest, grpc.ServerStreamingServer[NewRules]) error
@@ -125,9 +112,6 @@ type UnimplementedRASPCentralServer struct{}
 
 func (UnimplementedRASPCentralServer) RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegSSRFAgent not implemented")
-}
-func (UnimplementedRASPCentralServer) DeactivateSSRFAgent(context.Context, *DeactivateSSRFAgentRequest) (*DeactivateSSRFAgentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeactivateSSRFAgent not implemented")
 }
 func (UnimplementedRASPCentralServer) CloseSSRFAgent(context.Context, *AgentRequest) (*CloseSSRFAgentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CloseSSRFAgent not implemented")
@@ -173,24 +157,6 @@ func _RASPCentral_RegSSRFAgent_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RASPCentralServer).RegSSRFAgent(ctx, req.(*RegSSRFAgentRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _RASPCentral_DeactivateSSRFAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeactivateSSRFAgentRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RASPCentralServer).DeactivateSSRFAgent(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RASPCentral_DeactivateSSRFAgent_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RASPCentralServer).DeactivateSSRFAgent(ctx, req.(*DeactivateSSRFAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -252,10 +218,6 @@ var RASPCentral_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegSSRFAgent",
 			Handler:    _RASPCentral_RegSSRFAgent_Handler,
-		},
-		{
-			MethodName: "DeactivateSSRFAgent",
-			Handler:    _RASPCentral_DeactivateSSRFAgent_Handler,
 		},
 		{
 			MethodName: "CloseSSRFAgent",

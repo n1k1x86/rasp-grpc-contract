@@ -22,16 +22,11 @@ const (
 )
 
 type RegSSRFAgentRequest struct {
-	state              protoimpl.MessageState `protogen:"open.v1"`
-	ServiceName        string                 `protobuf:"bytes,1,opt,name=ServiceName,proto3" json:"ServiceName,omitempty"`
-	ServiceDescription string                 `protobuf:"bytes,2,opt,name=ServiceDescription,proto3" json:"ServiceDescription,omitempty"`
-	HostRules          []string               `protobuf:"bytes,3,rep,name=HostRules,proto3" json:"HostRules,omitempty"`
-	IPRules            []string               `protobuf:"bytes,4,rep,name=IPRules,proto3" json:"IPRules,omitempty"`
-	RegexpRules        []string               `protobuf:"bytes,5,rep,name=RegexpRules,proto3" json:"RegexpRules,omitempty"`
-	UpdateURL          string                 `protobuf:"bytes,6,opt,name=UpdateURL,proto3" json:"UpdateURL,omitempty"`
-	AgentName          string                 `protobuf:"bytes,7,opt,name=AgentName,proto3" json:"AgentName,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceID     string                 `protobuf:"bytes,1,opt,name=ServiceID,proto3" json:"ServiceID,omitempty"`
+	AgentName     string                 `protobuf:"bytes,2,opt,name=AgentName,proto3" json:"AgentName,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *RegSSRFAgentRequest) Reset() {
@@ -64,44 +59,9 @@ func (*RegSSRFAgentRequest) Descriptor() ([]byte, []int) {
 	return file_proto_rasp_central_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *RegSSRFAgentRequest) GetServiceName() string {
+func (x *RegSSRFAgentRequest) GetServiceID() string {
 	if x != nil {
-		return x.ServiceName
-	}
-	return ""
-}
-
-func (x *RegSSRFAgentRequest) GetServiceDescription() string {
-	if x != nil {
-		return x.ServiceDescription
-	}
-	return ""
-}
-
-func (x *RegSSRFAgentRequest) GetHostRules() []string {
-	if x != nil {
-		return x.HostRules
-	}
-	return nil
-}
-
-func (x *RegSSRFAgentRequest) GetIPRules() []string {
-	if x != nil {
-		return x.IPRules
-	}
-	return nil
-}
-
-func (x *RegSSRFAgentRequest) GetRegexpRules() []string {
-	if x != nil {
-		return x.RegexpRules
-	}
-	return nil
-}
-
-func (x *RegSSRFAgentRequest) GetUpdateURL() string {
-	if x != nil {
-		return x.UpdateURL
+		return x.ServiceID
 	}
 	return ""
 }
@@ -173,129 +133,16 @@ func (x *RegSSRFAgentResponse) GetAgentID() string {
 	return ""
 }
 
-type DeactivateSSRFAgentRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ServiceName   string                 `protobuf:"bytes,1,opt,name=ServiceName,proto3" json:"ServiceName,omitempty"`
-	AgentName     string                 `protobuf:"bytes,2,opt,name=AgentName,proto3" json:"AgentName,omitempty"`
-	AgentID       string                 `protobuf:"bytes,3,opt,name=AgentID,proto3" json:"AgentID,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeactivateSSRFAgentRequest) Reset() {
-	*x = DeactivateSSRFAgentRequest{}
-	mi := &file_proto_rasp_central_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeactivateSSRFAgentRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeactivateSSRFAgentRequest) ProtoMessage() {}
-
-func (x *DeactivateSSRFAgentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeactivateSSRFAgentRequest.ProtoReflect.Descriptor instead.
-func (*DeactivateSSRFAgentRequest) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *DeactivateSSRFAgentRequest) GetServiceName() string {
-	if x != nil {
-		return x.ServiceName
-	}
-	return ""
-}
-
-func (x *DeactivateSSRFAgentRequest) GetAgentName() string {
-	if x != nil {
-		return x.AgentName
-	}
-	return ""
-}
-
-func (x *DeactivateSSRFAgentRequest) GetAgentID() string {
-	if x != nil {
-		return x.AgentID
-	}
-	return ""
-}
-
-type DeactivateSSRFAgentResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Status        int64                  `protobuf:"varint,1,opt,name=Status,proto3" json:"Status,omitempty"`
-	Detail        string                 `protobuf:"bytes,2,opt,name=Detail,proto3" json:"Detail,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *DeactivateSSRFAgentResponse) Reset() {
-	*x = DeactivateSSRFAgentResponse{}
-	mi := &file_proto_rasp_central_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *DeactivateSSRFAgentResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeactivateSSRFAgentResponse) ProtoMessage() {}
-
-func (x *DeactivateSSRFAgentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeactivateSSRFAgentResponse.ProtoReflect.Descriptor instead.
-func (*DeactivateSSRFAgentResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *DeactivateSSRFAgentResponse) GetStatus() int64 {
-	if x != nil {
-		return x.Status
-	}
-	return 0
-}
-
-func (x *DeactivateSSRFAgentResponse) GetDetail() string {
-	if x != nil {
-		return x.Detail
-	}
-	return ""
-}
-
 type AgentRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AgentID       string                 `protobuf:"bytes,1,opt,name=AgentID,proto3" json:"AgentID,omitempty"`
-	ServiceName   string                 `protobuf:"bytes,2,opt,name=ServiceName,proto3" json:"ServiceName,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AgentRequest) Reset() {
 	*x = AgentRequest{}
-	mi := &file_proto_rasp_central_proto_msgTypes[4]
+	mi := &file_proto_rasp_central_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -307,7 +154,7 @@ func (x *AgentRequest) String() string {
 func (*AgentRequest) ProtoMessage() {}
 
 func (x *AgentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[4]
+	mi := &file_proto_rasp_central_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,19 +167,12 @@ func (x *AgentRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AgentRequest.ProtoReflect.Descriptor instead.
 func (*AgentRequest) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{4}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *AgentRequest) GetAgentID() string {
 	if x != nil {
 		return x.AgentID
-	}
-	return ""
-}
-
-func (x *AgentRequest) GetServiceName() string {
-	if x != nil {
-		return x.ServiceName
 	}
 	return ""
 }
@@ -346,7 +186,7 @@ type CloseSSRFAgentResponse struct {
 
 func (x *CloseSSRFAgentResponse) Reset() {
 	*x = CloseSSRFAgentResponse{}
-	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	mi := &file_proto_rasp_central_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -358,7 +198,7 @@ func (x *CloseSSRFAgentResponse) String() string {
 func (*CloseSSRFAgentResponse) ProtoMessage() {}
 
 func (x *CloseSSRFAgentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[5]
+	mi := &file_proto_rasp_central_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +211,7 @@ func (x *CloseSSRFAgentResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CloseSSRFAgentResponse.ProtoReflect.Descriptor instead.
 func (*CloseSSRFAgentResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{5}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CloseSSRFAgentResponse) GetDetail() string {
@@ -392,7 +232,7 @@ type UpdatedSSRFRules struct {
 
 func (x *UpdatedSSRFRules) Reset() {
 	*x = UpdatedSSRFRules{}
-	mi := &file_proto_rasp_central_proto_msgTypes[6]
+	mi := &file_proto_rasp_central_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -404,7 +244,7 @@ func (x *UpdatedSSRFRules) String() string {
 func (*UpdatedSSRFRules) ProtoMessage() {}
 
 func (x *UpdatedSSRFRules) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[6]
+	mi := &file_proto_rasp_central_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -417,7 +257,7 @@ func (x *UpdatedSSRFRules) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatedSSRFRules.ProtoReflect.Descriptor instead.
 func (*UpdatedSSRFRules) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{6}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UpdatedSSRFRules) GetHostRules() []string {
@@ -453,7 +293,7 @@ type NewRules struct {
 
 func (x *NewRules) Reset() {
 	*x = NewRules{}
-	mi := &file_proto_rasp_central_proto_msgTypes[7]
+	mi := &file_proto_rasp_central_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -465,7 +305,7 @@ func (x *NewRules) String() string {
 func (*NewRules) ProtoMessage() {}
 
 func (x *NewRules) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[7]
+	mi := &file_proto_rasp_central_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -478,7 +318,7 @@ func (x *NewRules) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NewRules.ProtoReflect.Descriptor instead.
 func (*NewRules) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{7}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *NewRules) GetPayload() isNewRules_Payload {
@@ -516,7 +356,7 @@ type IsServiceRegisteredReq struct {
 
 func (x *IsServiceRegisteredReq) Reset() {
 	*x = IsServiceRegisteredReq{}
-	mi := &file_proto_rasp_central_proto_msgTypes[8]
+	mi := &file_proto_rasp_central_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -528,7 +368,7 @@ func (x *IsServiceRegisteredReq) String() string {
 func (*IsServiceRegisteredReq) ProtoMessage() {}
 
 func (x *IsServiceRegisteredReq) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[8]
+	mi := &file_proto_rasp_central_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -541,7 +381,7 @@ func (x *IsServiceRegisteredReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsServiceRegisteredReq.ProtoReflect.Descriptor instead.
 func (*IsServiceRegisteredReq) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{8}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *IsServiceRegisteredReq) GetServiceID() string {
@@ -560,7 +400,7 @@ type IsServiceRegisteredResp struct {
 
 func (x *IsServiceRegisteredResp) Reset() {
 	*x = IsServiceRegisteredResp{}
-	mi := &file_proto_rasp_central_proto_msgTypes[9]
+	mi := &file_proto_rasp_central_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -572,7 +412,7 @@ func (x *IsServiceRegisteredResp) String() string {
 func (*IsServiceRegisteredResp) ProtoMessage() {}
 
 func (x *IsServiceRegisteredResp) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rasp_central_proto_msgTypes[9]
+	mi := &file_proto_rasp_central_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -585,7 +425,7 @@ func (x *IsServiceRegisteredResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsServiceRegisteredResp.ProtoReflect.Descriptor instead.
 func (*IsServiceRegisteredResp) Descriptor() ([]byte, []int) {
-	return file_proto_rasp_central_proto_rawDescGZIP(), []int{9}
+	return file_proto_rasp_central_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *IsServiceRegisteredResp) GetIsRegistered() bool {
@@ -599,29 +439,16 @@ var File_proto_rasp_central_proto protoreflect.FileDescriptor
 
 const file_proto_rasp_central_proto_rawDesc = "" +
 	"\n" +
-	"\x18proto/rasp-central.proto\"\xfd\x01\n" +
-	"\x13RegSSRFAgentRequest\x12 \n" +
-	"\vServiceName\x18\x01 \x01(\tR\vServiceName\x12.\n" +
-	"\x12ServiceDescription\x18\x02 \x01(\tR\x12ServiceDescription\x12\x1c\n" +
-	"\tHostRules\x18\x03 \x03(\tR\tHostRules\x12\x18\n" +
-	"\aIPRules\x18\x04 \x03(\tR\aIPRules\x12 \n" +
-	"\vRegexpRules\x18\x05 \x03(\tR\vRegexpRules\x12\x1c\n" +
-	"\tUpdateURL\x18\x06 \x01(\tR\tUpdateURL\x12\x1c\n" +
-	"\tAgentName\x18\a \x01(\tR\tAgentName\"`\n" +
+	"\x18proto/rasp-central.proto\"Q\n" +
+	"\x13RegSSRFAgentRequest\x12\x1c\n" +
+	"\tServiceID\x18\x01 \x01(\tR\tServiceID\x12\x1c\n" +
+	"\tAgentName\x18\x02 \x01(\tR\tAgentName\"`\n" +
 	"\x14RegSSRFAgentResponse\x12\x16\n" +
 	"\x06Status\x18\x01 \x01(\x03R\x06Status\x12\x16\n" +
 	"\x06Detail\x18\x02 \x01(\tR\x06Detail\x12\x18\n" +
-	"\aAgentID\x18\x03 \x01(\tR\aAgentID\"v\n" +
-	"\x1aDeactivateSSRFAgentRequest\x12 \n" +
-	"\vServiceName\x18\x01 \x01(\tR\vServiceName\x12\x1c\n" +
-	"\tAgentName\x18\x02 \x01(\tR\tAgentName\x12\x18\n" +
-	"\aAgentID\x18\x03 \x01(\tR\aAgentID\"M\n" +
-	"\x1bDeactivateSSRFAgentResponse\x12\x16\n" +
-	"\x06Status\x18\x01 \x01(\x03R\x06Status\x12\x16\n" +
-	"\x06Detail\x18\x02 \x01(\tR\x06Detail\"J\n" +
+	"\aAgentID\x18\x03 \x01(\tR\aAgentID\"(\n" +
 	"\fAgentRequest\x12\x18\n" +
-	"\aAgentID\x18\x01 \x01(\tR\aAgentID\x12 \n" +
-	"\vServiceName\x18\x02 \x01(\tR\vServiceName\"0\n" +
+	"\aAgentID\x18\x01 \x01(\tR\aAgentID\"0\n" +
 	"\x16CloseSSRFAgentResponse\x12\x16\n" +
 	"\x06Detail\x18\x01 \x01(\tR\x06Detail\"l\n" +
 	"\x10UpdatedSSRFRules\x12\x1c\n" +
@@ -634,10 +461,9 @@ const file_proto_rasp_central_proto_rawDesc = "" +
 	"\x16IsServiceRegisteredReq\x12\x1c\n" +
 	"\tServiceID\x18\x01 \x01(\tR\tServiceID\"=\n" +
 	"\x17IsServiceRegisteredResp\x12\"\n" +
-	"\fIsRegistered\x18\x01 \x01(\bR\fIsRegistered2\xc9\x02\n" +
+	"\fIsRegistered\x18\x01 \x01(\bR\fIsRegistered2\xf7\x01\n" +
 	"\vRASPCentral\x12;\n" +
-	"\fRegSSRFAgent\x12\x14.RegSSRFAgentRequest\x1a\x15.RegSSRFAgentResponse\x12P\n" +
-	"\x13DeactivateSSRFAgent\x12\x1b.DeactivateSSRFAgentRequest\x1a\x1c.DeactivateSSRFAgentResponse\x128\n" +
+	"\fRegSSRFAgent\x12\x14.RegSSRFAgentRequest\x1a\x15.RegSSRFAgentResponse\x128\n" +
 	"\x0eCloseSSRFAgent\x12\r.AgentRequest\x1a\x17.CloseSSRFAgentResponse\x12H\n" +
 	"\x13IsServiceRegistered\x12\x17.IsServiceRegisteredReq\x1a\x18.IsServiceRegisteredResp\x12'\n" +
 	"\tSyncRules\x12\r.AgentRequest\x1a\t.NewRules0\x01B+Z)github.com/n1k1x86/rasp-grpc-contract/genb\x06proto3"
@@ -654,33 +480,29 @@ func file_proto_rasp_central_proto_rawDescGZIP() []byte {
 	return file_proto_rasp_central_proto_rawDescData
 }
 
-var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_rasp_central_proto_goTypes = []any{
-	(*RegSSRFAgentRequest)(nil),         // 0: RegSSRFAgentRequest
-	(*RegSSRFAgentResponse)(nil),        // 1: RegSSRFAgentResponse
-	(*DeactivateSSRFAgentRequest)(nil),  // 2: DeactivateSSRFAgentRequest
-	(*DeactivateSSRFAgentResponse)(nil), // 3: DeactivateSSRFAgentResponse
-	(*AgentRequest)(nil),                // 4: AgentRequest
-	(*CloseSSRFAgentResponse)(nil),      // 5: CloseSSRFAgentResponse
-	(*UpdatedSSRFRules)(nil),            // 6: UpdatedSSRFRules
-	(*NewRules)(nil),                    // 7: NewRules
-	(*IsServiceRegisteredReq)(nil),      // 8: IsServiceRegisteredReq
-	(*IsServiceRegisteredResp)(nil),     // 9: IsServiceRegisteredResp
+	(*RegSSRFAgentRequest)(nil),     // 0: RegSSRFAgentRequest
+	(*RegSSRFAgentResponse)(nil),    // 1: RegSSRFAgentResponse
+	(*AgentRequest)(nil),            // 2: AgentRequest
+	(*CloseSSRFAgentResponse)(nil),  // 3: CloseSSRFAgentResponse
+	(*UpdatedSSRFRules)(nil),        // 4: UpdatedSSRFRules
+	(*NewRules)(nil),                // 5: NewRules
+	(*IsServiceRegisteredReq)(nil),  // 6: IsServiceRegisteredReq
+	(*IsServiceRegisteredResp)(nil), // 7: IsServiceRegisteredResp
 }
 var file_proto_rasp_central_proto_depIdxs = []int32{
-	6, // 0: NewRules.Rules:type_name -> UpdatedSSRFRules
+	4, // 0: NewRules.Rules:type_name -> UpdatedSSRFRules
 	0, // 1: RASPCentral.RegSSRFAgent:input_type -> RegSSRFAgentRequest
-	2, // 2: RASPCentral.DeactivateSSRFAgent:input_type -> DeactivateSSRFAgentRequest
-	4, // 3: RASPCentral.CloseSSRFAgent:input_type -> AgentRequest
-	8, // 4: RASPCentral.IsServiceRegistered:input_type -> IsServiceRegisteredReq
-	4, // 5: RASPCentral.SyncRules:input_type -> AgentRequest
-	1, // 6: RASPCentral.RegSSRFAgent:output_type -> RegSSRFAgentResponse
-	3, // 7: RASPCentral.DeactivateSSRFAgent:output_type -> DeactivateSSRFAgentResponse
-	5, // 8: RASPCentral.CloseSSRFAgent:output_type -> CloseSSRFAgentResponse
-	9, // 9: RASPCentral.IsServiceRegistered:output_type -> IsServiceRegisteredResp
-	7, // 10: RASPCentral.SyncRules:output_type -> NewRules
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
+	2, // 2: RASPCentral.CloseSSRFAgent:input_type -> AgentRequest
+	6, // 3: RASPCentral.IsServiceRegistered:input_type -> IsServiceRegisteredReq
+	2, // 4: RASPCentral.SyncRules:input_type -> AgentRequest
+	1, // 5: RASPCentral.RegSSRFAgent:output_type -> RegSSRFAgentResponse
+	3, // 6: RASPCentral.CloseSSRFAgent:output_type -> CloseSSRFAgentResponse
+	7, // 7: RASPCentral.IsServiceRegistered:output_type -> IsServiceRegisteredResp
+	5, // 8: RASPCentral.SyncRules:output_type -> NewRules
+	5, // [5:9] is the sub-list for method output_type
+	1, // [1:5] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -691,7 +513,7 @@ func file_proto_rasp_central_proto_init() {
 	if File_proto_rasp_central_proto != nil {
 		return
 	}
-	file_proto_rasp_central_proto_msgTypes[7].OneofWrappers = []any{
+	file_proto_rasp_central_proto_msgTypes[5].OneofWrappers = []any{
 		(*NewRules_Rules)(nil),
 	}
 	type x struct{}
@@ -700,7 +522,7 @@ func file_proto_rasp_central_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_rasp_central_proto_rawDesc), len(file_proto_rasp_central_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
