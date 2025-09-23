@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RASPCentral_RegSSRFAgent_FullMethodName        = "/RASPCentral/RegSSRFAgent"
-	RASPCentral_CloseSSRFAgent_FullMethodName      = "/RASPCentral/CloseSSRFAgent"
+	RASPCentral_RegAgent_FullMethodName            = "/RASPCentral/RegAgent"
+	RASPCentral_CloseAgent_FullMethodName          = "/RASPCentral/CloseAgent"
 	RASPCentral_IsServiceRegistered_FullMethodName = "/RASPCentral/IsServiceRegistered"
 	RASPCentral_SyncRules_FullMethodName           = "/RASPCentral/SyncRules"
 )
@@ -29,8 +29,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RASPCentralClient interface {
-	RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error)
-	CloseSSRFAgent(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (*CloseSSRFAgentResponse, error)
+	RegAgent(ctx context.Context, in *RegAgentRequest, opts ...grpc.CallOption) (*RegAgentResponse, error)
+	CloseAgent(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (*CloseAgentResponse, error)
 	IsServiceRegistered(ctx context.Context, in *IsServiceRegisteredReq, opts ...grpc.CallOption) (*IsServiceRegisteredResp, error)
 	SyncRules(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NewRules], error)
 }
@@ -43,20 +43,20 @@ func NewRASPCentralClient(cc grpc.ClientConnInterface) RASPCentralClient {
 	return &rASPCentralClient{cc}
 }
 
-func (c *rASPCentralClient) RegSSRFAgent(ctx context.Context, in *RegSSRFAgentRequest, opts ...grpc.CallOption) (*RegSSRFAgentResponse, error) {
+func (c *rASPCentralClient) RegAgent(ctx context.Context, in *RegAgentRequest, opts ...grpc.CallOption) (*RegAgentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RegSSRFAgentResponse)
-	err := c.cc.Invoke(ctx, RASPCentral_RegSSRFAgent_FullMethodName, in, out, cOpts...)
+	out := new(RegAgentResponse)
+	err := c.cc.Invoke(ctx, RASPCentral_RegAgent_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rASPCentralClient) CloseSSRFAgent(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (*CloseSSRFAgentResponse, error) {
+func (c *rASPCentralClient) CloseAgent(ctx context.Context, in *AgentRequest, opts ...grpc.CallOption) (*CloseAgentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CloseSSRFAgentResponse)
-	err := c.cc.Invoke(ctx, RASPCentral_CloseSSRFAgent_FullMethodName, in, out, cOpts...)
+	out := new(CloseAgentResponse)
+	err := c.cc.Invoke(ctx, RASPCentral_CloseAgent_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,8 +96,8 @@ type RASPCentral_SyncRulesClient = grpc.ServerStreamingClient[NewRules]
 // All implementations must embed UnimplementedRASPCentralServer
 // for forward compatibility.
 type RASPCentralServer interface {
-	RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error)
-	CloseSSRFAgent(context.Context, *AgentRequest) (*CloseSSRFAgentResponse, error)
+	RegAgent(context.Context, *RegAgentRequest) (*RegAgentResponse, error)
+	CloseAgent(context.Context, *AgentRequest) (*CloseAgentResponse, error)
 	IsServiceRegistered(context.Context, *IsServiceRegisteredReq) (*IsServiceRegisteredResp, error)
 	SyncRules(*AgentRequest, grpc.ServerStreamingServer[NewRules]) error
 	mustEmbedUnimplementedRASPCentralServer()
@@ -110,11 +110,11 @@ type RASPCentralServer interface {
 // pointer dereference when methods are called.
 type UnimplementedRASPCentralServer struct{}
 
-func (UnimplementedRASPCentralServer) RegSSRFAgent(context.Context, *RegSSRFAgentRequest) (*RegSSRFAgentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegSSRFAgent not implemented")
+func (UnimplementedRASPCentralServer) RegAgent(context.Context, *RegAgentRequest) (*RegAgentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegAgent not implemented")
 }
-func (UnimplementedRASPCentralServer) CloseSSRFAgent(context.Context, *AgentRequest) (*CloseSSRFAgentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CloseSSRFAgent not implemented")
+func (UnimplementedRASPCentralServer) CloseAgent(context.Context, *AgentRequest) (*CloseAgentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloseAgent not implemented")
 }
 func (UnimplementedRASPCentralServer) IsServiceRegistered(context.Context, *IsServiceRegisteredReq) (*IsServiceRegisteredResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IsServiceRegistered not implemented")
@@ -143,38 +143,38 @@ func RegisterRASPCentralServer(s grpc.ServiceRegistrar, srv RASPCentralServer) {
 	s.RegisterService(&RASPCentral_ServiceDesc, srv)
 }
 
-func _RASPCentral_RegSSRFAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegSSRFAgentRequest)
+func _RASPCentral_RegAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegAgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RASPCentralServer).RegSSRFAgent(ctx, in)
+		return srv.(RASPCentralServer).RegAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: RASPCentral_RegSSRFAgent_FullMethodName,
+		FullMethod: RASPCentral_RegAgent_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RASPCentralServer).RegSSRFAgent(ctx, req.(*RegSSRFAgentRequest))
+		return srv.(RASPCentralServer).RegAgent(ctx, req.(*RegAgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RASPCentral_CloseSSRFAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RASPCentral_CloseAgent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AgentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RASPCentralServer).CloseSSRFAgent(ctx, in)
+		return srv.(RASPCentralServer).CloseAgent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: RASPCentral_CloseSSRFAgent_FullMethodName,
+		FullMethod: RASPCentral_CloseAgent_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RASPCentralServer).CloseSSRFAgent(ctx, req.(*AgentRequest))
+		return srv.(RASPCentralServer).CloseAgent(ctx, req.(*AgentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -216,12 +216,12 @@ var RASPCentral_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RASPCentralServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RegSSRFAgent",
-			Handler:    _RASPCentral_RegSSRFAgent_Handler,
+			MethodName: "RegAgent",
+			Handler:    _RASPCentral_RegAgent_Handler,
 		},
 		{
-			MethodName: "CloseSSRFAgent",
-			Handler:    _RASPCentral_CloseSSRFAgent_Handler,
+			MethodName: "CloseAgent",
+			Handler:    _RASPCentral_CloseAgent_Handler,
 		},
 		{
 			MethodName: "IsServiceRegistered",
