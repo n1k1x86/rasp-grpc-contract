@@ -30,9 +30,15 @@ message UpdatedSSRFRules {
     repeated string RegexpRules = 3;
 }
 
+message UpdatedSecMisRules {
+    repeated string Ports = 1;
+    map<string, string> ConfigParams = 2;
+}
+
 message NewRules {
     oneof payload {
-        UpdatedSSRFRules Rules = 1;
+        UpdatedSSRFRules SSRFRules = 1;
+        UpdatedSecMisRules SecMisRules = 2;
     }
 }
 
