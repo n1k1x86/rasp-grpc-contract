@@ -32,7 +32,10 @@ message UpdatedSSRFRules {
 
 message UpdatedSecMisRules {
     repeated string Ports = 1;
-    map<string, string> ConfigParams = 2;
+    map<string, string> StringParams = 2;
+    map<string, double> FloatParams = 3;
+    map<string, bool> BoolParams = 4;
+    map<string, int32> IntParams = 5;
 }
 
 message NewRules {

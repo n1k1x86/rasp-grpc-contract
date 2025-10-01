@@ -308,7 +308,10 @@ func (x *UpdatedSSRFRules) GetRegexpRules() []string {
 type UpdatedSecMisRules struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ports         []string               `protobuf:"bytes,1,rep,name=Ports,proto3" json:"Ports,omitempty"`
-	ConfigParams  map[string]string      `protobuf:"bytes,2,rep,name=ConfigParams,proto3" json:"ConfigParams,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	StringParams  map[string]string      `protobuf:"bytes,2,rep,name=StringParams,proto3" json:"StringParams,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	FloatParams   map[string]float64     `protobuf:"bytes,3,rep,name=FloatParams,proto3" json:"FloatParams,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"fixed64,2,opt,name=value"`
+	BoolParams    map[string]bool        `protobuf:"bytes,4,rep,name=BoolParams,proto3" json:"BoolParams,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	IntParams     map[string]int32       `protobuf:"bytes,5,rep,name=IntParams,proto3" json:"IntParams,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -350,9 +353,30 @@ func (x *UpdatedSecMisRules) GetPorts() []string {
 	return nil
 }
 
-func (x *UpdatedSecMisRules) GetConfigParams() map[string]string {
+func (x *UpdatedSecMisRules) GetStringParams() map[string]string {
 	if x != nil {
-		return x.ConfigParams
+		return x.StringParams
+	}
+	return nil
+}
+
+func (x *UpdatedSecMisRules) GetFloatParams() map[string]float64 {
+	if x != nil {
+		return x.FloatParams
+	}
+	return nil
+}
+
+func (x *UpdatedSecMisRules) GetBoolParams() map[string]bool {
+	if x != nil {
+		return x.BoolParams
+	}
+	return nil
+}
+
+func (x *UpdatedSecMisRules) GetIntParams() map[string]int32 {
+	if x != nil {
+		return x.IntParams
 	}
 	return nil
 }
@@ -549,13 +573,27 @@ const file_proto_rasp_central_proto_rawDesc = "" +
 	"\x10UpdatedSSRFRules\x12\x1c\n" +
 	"\tHostRules\x18\x01 \x03(\tR\tHostRules\x12\x18\n" +
 	"\aIPRules\x18\x02 \x03(\tR\aIPRules\x12 \n" +
-	"\vRegexpRules\x18\x03 \x03(\tR\vRegexpRules\"\xb6\x01\n" +
+	"\vRegexpRules\x18\x03 \x03(\tR\vRegexpRules\"\xc2\x04\n" +
 	"\x12UpdatedSecMisRules\x12\x14\n" +
 	"\x05Ports\x18\x01 \x03(\tR\x05Ports\x12I\n" +
-	"\fConfigParams\x18\x02 \x03(\v2%.UpdatedSecMisRules.ConfigParamsEntryR\fConfigParams\x1a?\n" +
-	"\x11ConfigParamsEntry\x12\x10\n" +
+	"\fStringParams\x18\x02 \x03(\v2%.UpdatedSecMisRules.StringParamsEntryR\fStringParams\x12F\n" +
+	"\vFloatParams\x18\x03 \x03(\v2$.UpdatedSecMisRules.FloatParamsEntryR\vFloatParams\x12C\n" +
+	"\n" +
+	"BoolParams\x18\x04 \x03(\v2#.UpdatedSecMisRules.BoolParamsEntryR\n" +
+	"BoolParams\x12@\n" +
+	"\tIntParams\x18\x05 \x03(\v2\".UpdatedSecMisRules.IntParamsEntryR\tIntParams\x1a?\n" +
+	"\x11StringParamsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x81\x01\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1a>\n" +
+	"\x10FloatParamsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\x01R\x05value:\x028\x01\x1a=\n" +
+	"\x0fBoolParamsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\bR\x05value:\x028\x01\x1a<\n" +
+	"\x0eIntParamsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\x05R\x05value:\x028\x01\"\x81\x01\n" +
 	"\bNewRules\x121\n" +
 	"\tSSRFRules\x18\x01 \x01(\v2\x11.UpdatedSSRFRulesH\x00R\tSSRFRules\x127\n" +
 	"\vSecMisRules\x18\x02 \x01(\v2\x13.UpdatedSecMisRulesH\x00R\vSecMisRulesB\t\n" +
@@ -583,7 +621,7 @@ func file_proto_rasp_central_proto_rawDescGZIP() []byte {
 	return file_proto_rasp_central_proto_rawDescData
 }
 
-var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_proto_rasp_central_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_proto_rasp_central_proto_goTypes = []any{
 	(*RegAgentRequest)(nil),         // 0: RegAgentRequest
 	(*RegAgentResponse)(nil),        // 1: RegAgentResponse
@@ -594,25 +632,31 @@ var file_proto_rasp_central_proto_goTypes = []any{
 	(*NewRules)(nil),                // 6: NewRules
 	(*IsServiceRegisteredReq)(nil),  // 7: IsServiceRegisteredReq
 	(*IsServiceRegisteredResp)(nil), // 8: IsServiceRegisteredResp
-	nil,                             // 9: UpdatedSecMisRules.ConfigParamsEntry
+	nil,                             // 9: UpdatedSecMisRules.StringParamsEntry
+	nil,                             // 10: UpdatedSecMisRules.FloatParamsEntry
+	nil,                             // 11: UpdatedSecMisRules.BoolParamsEntry
+	nil,                             // 12: UpdatedSecMisRules.IntParamsEntry
 }
 var file_proto_rasp_central_proto_depIdxs = []int32{
-	9, // 0: UpdatedSecMisRules.ConfigParams:type_name -> UpdatedSecMisRules.ConfigParamsEntry
-	4, // 1: NewRules.SSRFRules:type_name -> UpdatedSSRFRules
-	5, // 2: NewRules.SecMisRules:type_name -> UpdatedSecMisRules
-	0, // 3: RASPCentral.RegAgent:input_type -> RegAgentRequest
-	2, // 4: RASPCentral.CloseAgent:input_type -> AgentRequest
-	7, // 5: RASPCentral.IsServiceRegistered:input_type -> IsServiceRegisteredReq
-	2, // 6: RASPCentral.SyncRules:input_type -> AgentRequest
-	1, // 7: RASPCentral.RegAgent:output_type -> RegAgentResponse
-	3, // 8: RASPCentral.CloseAgent:output_type -> CloseAgentResponse
-	8, // 9: RASPCentral.IsServiceRegistered:output_type -> IsServiceRegisteredResp
-	6, // 10: RASPCentral.SyncRules:output_type -> NewRules
-	7, // [7:11] is the sub-list for method output_type
-	3, // [3:7] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	9,  // 0: UpdatedSecMisRules.StringParams:type_name -> UpdatedSecMisRules.StringParamsEntry
+	10, // 1: UpdatedSecMisRules.FloatParams:type_name -> UpdatedSecMisRules.FloatParamsEntry
+	11, // 2: UpdatedSecMisRules.BoolParams:type_name -> UpdatedSecMisRules.BoolParamsEntry
+	12, // 3: UpdatedSecMisRules.IntParams:type_name -> UpdatedSecMisRules.IntParamsEntry
+	4,  // 4: NewRules.SSRFRules:type_name -> UpdatedSSRFRules
+	5,  // 5: NewRules.SecMisRules:type_name -> UpdatedSecMisRules
+	0,  // 6: RASPCentral.RegAgent:input_type -> RegAgentRequest
+	2,  // 7: RASPCentral.CloseAgent:input_type -> AgentRequest
+	7,  // 8: RASPCentral.IsServiceRegistered:input_type -> IsServiceRegisteredReq
+	2,  // 9: RASPCentral.SyncRules:input_type -> AgentRequest
+	1,  // 10: RASPCentral.RegAgent:output_type -> RegAgentResponse
+	3,  // 11: RASPCentral.CloseAgent:output_type -> CloseAgentResponse
+	8,  // 12: RASPCentral.IsServiceRegistered:output_type -> IsServiceRegisteredResp
+	6,  // 13: RASPCentral.SyncRules:output_type -> NewRules
+	10, // [10:14] is the sub-list for method output_type
+	6,  // [6:10] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_proto_rasp_central_proto_init() }
@@ -630,7 +674,7 @@ func file_proto_rasp_central_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_rasp_central_proto_rawDesc), len(file_proto_rasp_central_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
